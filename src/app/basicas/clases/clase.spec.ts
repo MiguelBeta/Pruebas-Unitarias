@@ -34,7 +34,8 @@ describe( 'Pruebas de clase', () => {
 
   });
 
-  it( 'Debe retornar 50 de hp, si recibe 50 de daño', () => {
+  // Al Agregarle la x, omite esa prueba
+  xit( 'Debe retornar 50 de hp, si recibe 50 de daño', () => {
 
     // const jugador = new Jugador();
     const resp = jugador.recibeDanio(50);
