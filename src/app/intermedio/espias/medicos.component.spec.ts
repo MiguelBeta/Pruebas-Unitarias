@@ -3,7 +3,7 @@ import { MedicosComponent } from './medicos.component';
 import { MedicosService } from './medicos.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 // import { Observable } from 'rxjs';
-import { from } from 'rxjs';
+import { Observable, from, EMPTY } from 'rxjs';
 
 
 describe('MedicosComponent', () => {
@@ -43,6 +43,31 @@ describe('MedicosComponent', () => {
 
     // Lo que espera recibir la prueba
     expect(componente.medicos.length).toBeGreaterThan(0);
+
+  });
+
+  it( 'Debe de llamar al servidor para agregar un médico', () => {
+
+    const espia = spyOn( servicio, 'agregarMedico' ).and.callFake( medico => {
+      return EMPTY;
+    });
+
+    componente.agregarMedico();
+
+    expect( espia ).toHaveBeenCalled();
+
+  });
+
+  it( 'Debe de agregar un nuevo médico al arreglo de médicos', () => {
+
+    const medico = { id: 1, nombre: 'Miguel' };
+
+    spyOn( servicio, 'agregarMedico' )
+            .and.returnValue( from([ medico ]) );
+
+    componente.agregarMedico();
+
+    expect( componente.medicos.indexOf( medico ) ).toBeGreaterThanOrEqual(0);
 
   });
 
